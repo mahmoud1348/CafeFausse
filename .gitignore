@@ -1,0 +1,23 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# React
+node_modules/
+dist/
+build/
+
+# Sensitive configuration
+.env
+.env.*
+!.env.example
+
+# Editor and system files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

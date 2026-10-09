@@ -1,0 +1,1564 @@
+/* ========================================
+   GENERAL
+======================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background-color: #f8f5ef;
+  color: #222;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ========================================
+   NAVIGATION
+======================================== */
+
+.navbar {
+  width: 100%;
+  height: 80px;
+
+  padding: 0 7%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #161616;
+  color: white;
+}
+
+.logo {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+  opacity: 0.6;
+}
+
+
+/* ========================================
+   HOME - HERO
+======================================== */
+
+.hero {
+  min-height: 75vh;
+
+  background-image: url("/images/home-cafe-fausse.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-overlay {
+  min-height: 75vh;
+
+  padding: 7%;
+
+  display: flex;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.48);
+}
+
+.hero-content {
+  max-width: 650px;
+
+  color: white;
+}
+
+.eyebrow {
+  margin-bottom: 18px;
+
+  font-size: 0.85rem;
+
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.hero h1 {
+  margin-bottom: 20px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: normal;
+}
+
+.hero-description {
+  max-width: 550px;
+
+  margin-bottom: 35px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+
+
+/* ========================================
+   BUTTON
+======================================== */
+
+.button {
+  display: inline-block;
+
+  padding: 15px 30px;
+
+  background-color: white;
+  color: #161616;
+
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.button:hover {
+  background-color: #e4ded3;
+
+  transform: translateY(-2px);
+}
+
+
+/* ========================================
+   HOME - RESTAURANT INFORMATION
+======================================== */
+
+.restaurant-info {
+  max-width: 1100px;
+
+  margin: 0 auto;
+  padding: 80px 7%;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 100px;
+}
+
+.restaurant-info h2 {
+  margin-bottom: 20px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+}
+
+.restaurant-info p {
+  margin-bottom: 8px;
+
+  line-height: 1.6;
+}
+
+
+/* ========================================
+   GENERAL PAGE
+======================================== */
+
+.page {
+  max-width: 1100px;
+  min-height: 70vh;
+
+  margin: 0 auto;
+  padding: 80px 7%;
+}
+
+.page h1 {
+  margin-bottom: 20px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.5rem;
+  font-weight: normal;
+}
+
+
+/* ========================================
+   GENERAL PAGE HEADER
+======================================== */
+
+.page-header {
+  padding: 80px 7% 60px;
+
+  text-align: center;
+
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.page-header h1 {
+  margin-bottom: 20px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: normal;
+}
+
+.page-header > p:last-child {
+  max-width: 600px;
+
+  margin: 0 auto;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+
+  color: #d6d6d6;
+}
+
+.dark-eyebrow {
+  margin-bottom: 15px;
+
+  color: #c7a96b;
+}
+
+
+/* ========================================
+   MENU PAGE
+======================================== */
+
+.menu-page {
+  min-height: 100vh;
+
+  padding-bottom: 100px;
+}
+
+.menu-container {
+  max-width: 1000px;
+
+  margin: 0 auto;
+  padding: 80px 7%;
+}
+
+
+/* ========================================
+   MENU SECTIONS
+======================================== */
+
+.menu-section {
+  margin-bottom: 70px;
+}
+
+.menu-section h2 {
+  margin-bottom: 35px;
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #c8c0b5;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.2rem;
+  font-weight: normal;
+}
+
+
+/* ========================================
+   MENU ITEMS
+======================================== */
+
+.menu-item {
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 40px;
+}
+
+.menu-item-info {
+  max-width: 700px;
+}
+
+.menu-item h3 {
+  margin-bottom: 7px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+}
+
+.menu-item p {
+  color: #666;
+
+  line-height: 1.5;
+}
+
+.menu-price {
+  white-space: nowrap;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+
+
+/* ========================================
+   RESERVATIONS PAGE
+======================================== */
+
+.reservation-page {
+  min-height: 100vh;
+}
+
+.reservation-header {
+  padding: 70px 7%;
+
+  text-align: center;
+
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.reservation-header h1 {
+  margin-bottom: 18px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: normal;
+}
+
+.reservation-header > p:last-child {
+  max-width: 600px;
+
+  margin: 0 auto;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  line-height: 1.6;
+
+  color: #d6d6d6;
+}
+
+.reservation-container {
+  max-width: 1200px;
+
+  margin: 0 auto;
+  padding: 90px 7%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 90px;
+}
+
+
+/* ========================================
+   RESERVATION INFORMATION
+======================================== */
+
+.reservation-info h2 {
+  margin-bottom: 25px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.7rem;
+  font-weight: normal;
+}
+
+.reservation-info > p:not(.eyebrow) {
+  max-width: 500px;
+
+  margin-bottom: 40px;
+
+  color: #666;
+
+  line-height: 1.8;
+}
+
+.reservation-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 40px;
+}
+
+.reservation-details h3 {
+  margin-bottom: 15px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+}
+
+.reservation-details p {
+  margin-bottom: 6px;
+
+  color: #555;
+
+  line-height: 1.5;
+}
+
+.reservation-sunday {
+  margin-top: 15px;
+}
+
+
+/* ========================================
+   RESERVATION FORM
+======================================== */
+
+.reservation-form-wrapper {
+  padding: 40px;
+
+  background-color: white;
+
+  border: 1px solid #ded8cf;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.form-group label span {
+  color: #777;
+
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 1px solid #cfc8bd;
+
+  background-color: #fff;
+  color: #222;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #9b8050;
+}
+
+.reservation-button {
+  margin-top: 10px;
+
+  padding: 16px 25px;
+
+  border: none;
+
+  background-color: #1a1a1a;
+  color: white;
+
+  font-size: 0.95rem;
+  font-weight: bold;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.reservation-button:hover {
+  background-color: #9b8050;
+
+  transform: translateY(-2px);
+}
+
+.reservation-message {
+  padding: 15px;
+
+  background-color: #f1ede5;
+
+  line-height: 1.5;
+}
+
+
+/* ========================================
+   ABOUT PAGE
+======================================== */
+
+.about-page {
+  min-height: 100vh;
+}
+
+
+/* ========================================
+   ABOUT STORY
+======================================== */
+
+.about-story {
+  max-width: 1100px;
+
+  margin: 0 auto;
+  padding: 100px 7%;
+
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+
+  gap: 100px;
+  align-items: center;
+}
+
+.about-story-content h2 {
+  margin-bottom: 30px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: normal;
+}
+
+.about-story-content > p:not(.eyebrow) {
+  margin-bottom: 20px;
+
+  color: #555;
+
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+
+/* ========================================
+   ABOUT QUOTE
+======================================== */
+
+.about-quote {
+  padding: 45px;
+
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.about-quote span {
+  display: block;
+
+  height: 55px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 5rem;
+
+  color: #c7a96b;
+}
+
+.about-quote blockquote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+  line-height: 1.7;
+}
+
+
+/* ========================================
+   FOUNDERS
+======================================== */
+
+.founders-section {
+  padding: 90px 7%;
+
+  background-color: #ebe6dc;
+}
+
+.section-title {
+  max-width: 1100px;
+
+  margin: 0 auto 50px;
+}
+
+.section-title h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: normal;
+}
+
+.founders-grid {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 30px;
+}
+
+.founder-card {
+  padding: 45px;
+
+  background-color: #f8f5ef;
+}
+
+.founder-number {
+  margin-bottom: 35px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+
+  color: #9b8050;
+}
+
+.founder-card h3 {
+  margin-bottom: 8px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+  font-weight: normal;
+}
+
+.founder-role {
+  margin-bottom: 25px;
+
+  color: #9b8050;
+
+  font-size: 0.85rem;
+  font-weight: bold;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.founder-card > p:last-child {
+  color: #555;
+
+  line-height: 1.8;
+}
+
+
+/* ========================================
+   ABOUT VALUES
+======================================== */
+
+.about-values {
+  max-width: 1100px;
+
+  margin: 0 auto;
+  padding: 90px 7%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 60px;
+}
+
+.about-values span {
+  display: block;
+
+  margin-bottom: 20px;
+
+  color: #9b8050;
+
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.about-values h3 {
+  margin-bottom: 15px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem;
+}
+
+.about-values p {
+  color: #666;
+
+  line-height: 1.7;
+}
+
+
+/* ========================================
+   GALLERY PAGE
+======================================== */
+
+.gallery-page {
+  min-height: 100vh;
+}
+
+
+/* ========================================
+   GALLERY INTRO
+======================================== */
+
+.gallery-section {
+  max-width: 1200px;
+
+  margin: 0 auto;
+  padding: 90px 7%;
+}
+
+.gallery-intro {
+  max-width: 700px;
+
+  margin-bottom: 50px;
+}
+
+.gallery-intro h2 {
+  margin-bottom: 20px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: normal;
+}
+
+.gallery-intro > p:last-child {
+  color: #666;
+
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+
+/* ========================================
+   GALLERY GRID
+======================================== */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+
+  height: 400px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+}
+
+.gallery-item:first-child {
+  grid-column: span 2;
+
+  height: 520px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+
+/* ========================================
+   GALLERY IMAGE OVERLAY
+======================================== */
+
+.gallery-item-overlay {
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 60px 30px 30px;
+
+  text-align: left;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0, 0, 0, 0.8)
+    );
+}
+
+.gallery-item-overlay p {
+  margin-bottom: 8px;
+
+  color: #d5b879;
+
+  font-size: 0.75rem;
+  font-weight: bold;
+
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.gallery-item-overlay h3 {
+  margin-bottom: 10px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+  font-weight: normal;
+}
+
+.gallery-item-overlay span {
+  font-size: 0.8rem;
+
+  opacity: 0.8;
+}
+
+
+/* ========================================
+   AWARDS
+======================================== */
+
+.awards-section {
+  padding: 90px 7%;
+
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.awards-title {
+  color: white;
+}
+
+.awards-grid {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1px;
+
+  background-color: #444;
+}
+
+.award-card {
+  min-height: 240px;
+
+  padding: 40px;
+
+  background-color: #1a1a1a;
+}
+
+.award-year {
+  display: block;
+
+  margin-bottom: 45px;
+
+  color: #c7a96b;
+
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.award-card h3 {
+  margin-bottom: 12px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: normal;
+
+  line-height: 1.4;
+}
+
+.award-card p {
+  color: #aaa;
+
+  line-height: 1.5;
+}
+
+
+/* ========================================
+   REVIEWS
+======================================== */
+
+.reviews-section {
+  max-width: 1100px;
+
+  margin: 0 auto;
+  padding: 100px 7%;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 30px;
+}
+
+.review-card {
+  padding: 45px;
+
+  background-color: #ebe6dc;
+}
+
+.review-stars {
+  margin-bottom: 25px;
+
+  color: #9b8050;
+
+  letter-spacing: 4px;
+}
+
+.review-card blockquote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.3rem;
+
+  line-height: 1.7;
+}
+
+
+/* ========================================
+   LIGHTBOX
+======================================== */
+
+.lightbox {
+  position: fixed;
+  z-index: 1000;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.92);
+}
+
+.lightbox-content {
+  max-width: 1000px;
+  max-height: 90vh;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 75vh;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  padding-top: 20px;
+
+  color: white;
+}
+
+.lightbox-caption p {
+  margin-bottom: 7px;
+
+  color: #c7a96b;
+
+  font-size: 0.75rem;
+  font-weight: bold;
+
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.lightbox-caption h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem;
+  font-weight: normal;
+}
+
+.lightbox-close {
+  position: absolute;
+
+  top: 20px;
+  right: 30px;
+
+  border: none;
+
+  background: none;
+  color: white;
+
+  font-size: 3rem;
+  font-weight: 200;
+
+  cursor: pointer;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+  background-color: #111;
+  color: white;
+}
+
+.footer-main {
+  max-width: 1250px;
+
+  margin: 0 auto;
+  padding: 80px 7%;
+
+  display: grid;
+  grid-template-columns: 1.4fr 0.7fr 1fr 1.4fr;
+
+  gap: 60px;
+}
+
+
+/* ========================================
+   FOOTER BRAND
+======================================== */
+
+.footer-brand h2 {
+  margin-bottom: 20px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: normal;
+}
+
+.footer-brand > p {
+  max-width: 300px;
+
+  margin-bottom: 30px;
+
+  color: #aaa;
+
+  line-height: 1.7;
+}
+
+.footer-contact p {
+  margin-bottom: 6px;
+
+  color: #ccc;
+
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+
+/* ========================================
+   FOOTER COLUMNS
+======================================== */
+
+.footer-column h3,
+.footer-newsletter h3 {
+  margin-bottom: 25px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.footer-links a {
+  width: fit-content;
+
+  color: #aaa;
+
+  font-size: 0.9rem;
+
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #c7a96b;
+}
+
+
+/* ========================================
+   FOOTER HOURS
+======================================== */
+
+.footer-hours p {
+  margin-bottom: 5px;
+
+  color: #ddd;
+
+  font-size: 0.9rem;
+}
+
+.footer-hours span {
+  color: #999;
+
+  font-size: 0.9rem;
+}
+
+.footer-sunday {
+  margin-top: 20px;
+}
+
+
+/* ========================================
+   NEWSLETTER
+======================================== */
+
+.footer-newsletter > p {
+  margin-bottom: 20px;
+
+  color: #aaa;
+
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.newsletter-form label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #ccc;
+
+  font-size: 0.8rem;
+}
+
+.newsletter-input-group {
+  display: flex;
+}
+
+.newsletter-input-group input {
+  min-width: 0;
+  flex: 1;
+
+  padding: 13px;
+
+  border: 1px solid #555;
+  border-right: none;
+
+  background-color: #1b1b1b;
+  color: white;
+
+  font-size: 0.9rem;
+
+  outline: none;
+}
+
+.newsletter-input-group input:focus {
+  border-color: #c7a96b;
+}
+
+.newsletter-input-group button {
+  padding: 13px 20px;
+
+  border: 1px solid #c7a96b;
+
+  background-color: #c7a96b;
+  color: #111;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.newsletter-input-group button:hover {
+  background-color: transparent;
+  color: #c7a96b;
+}
+
+.newsletter-message {
+  margin-top: 12px;
+
+  color: #c7a96b;
+
+  font-size: 0.85rem;
+}
+
+
+/* ========================================
+   FOOTER BOTTOM
+======================================== */
+
+.footer-bottom {
+  padding: 22px 7%;
+
+  display: flex;
+  justify-content: space-between;
+
+  border-top: 1px solid #333;
+
+  color: #777;
+
+  font-size: 0.8rem;
+}
+
+
+/* ========================================
+   TABLET / MOBILE
+   768px AND BELOW
+======================================== */
+
+@media (max-width: 768px) {
+
+  /* Navigation */
+
+  .navbar {
+    height: auto;
+
+    padding: 20px;
+
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .nav-links {
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 15px;
+  }
+
+
+  /* Home */
+
+  .hero,
+  .hero-overlay {
+    min-height: 70vh;
+  }
+
+  .hero-overlay {
+    padding: 40px 7%;
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.15rem;
+  }
+
+  .restaurant-info {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+
+  /* General Page */
+
+  .page {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .page-header {
+    padding: 60px 7% 45px;
+  }
+
+
+  /* Menu */
+
+  .menu-container {
+    padding-top: 55px;
+  }
+
+  .menu-item {
+    gap: 20px;
+  }
+
+
+  /* Reservations */
+
+  .reservation-header {
+    padding: 60px 7% 45px;
+  }
+
+  .reservation-container {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .reservation-details {
+    grid-template-columns: 1fr;
+  }
+
+  .reservation-form-wrapper {
+    padding: 30px;
+  }
+
+
+    /* Gallery */
+
+  .gallery-section {
+    padding-top: 65px;
+    padding-bottom: 65px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-item,
+  .gallery-item:first-child {
+    grid-column: auto;
+
+    height: 400px;
+  }
+
+  .awards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .award-card {
+    min-height: auto;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* About */
+
+  .about-story {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+
+    padding-top: 65px;
+    padding-bottom: 65px;
+  }
+
+  .founders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-values {
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+
+    padding-top: 65px;
+    padding-bottom: 65px;
+  }
+
+
+    /* Footer */
+
+  .footer-main {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 50px;
+  }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+   480px AND BELOW
+======================================== */
+
+@media (max-width: 480px) {
+
+  /* Navigation */
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .nav-links {
+    font-size: 0.85rem;
+
+    gap: 12px;
+  }
+
+
+  /* Home */
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .button {
+    padding: 13px 22px;
+  }
+
+
+  /* General Page */
+
+  .page h1 {
+    font-size: 2.7rem;
+  }
+
+
+  /* Menu */
+
+  .menu-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .menu-item {
+    gap: 15px;
+  }
+
+  .menu-item h3 {
+    font-size: 1.1rem;
+  }
+
+  .menu-price {
+    font-size: 1rem;
+  }
+
+
+  /* Reservations */
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .reservation-form-wrapper {
+    padding: 22px;
+  }
+
+
+    /* Gallery */
+
+  .gallery-item,
+  .gallery-item:first-child {
+    height: 300px;
+  }
+
+  .gallery-item-overlay {
+    padding: 50px 20px 20px;
+  }
+
+  .award-card {
+    padding: 30px;
+  }
+
+  .review-card {
+    padding: 30px;
+  }
+
+  .lightbox {
+    padding: 20px;
+  }
+
+  .lightbox-close {
+    top: 10px;
+    right: 15px;
+  }
+
+
+  /* About */
+
+  .about-quote {
+    padding: 30px;
+  }
+
+  .founder-card {
+    padding: 30px;
+  }
+
+  .about-quote blockquote {
+    font-size: 1.2rem;
+  }
+
+
+    /* Footer */
+
+  .footer-main {
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .newsletter-input-group {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .newsletter-input-group input {
+    border-right: 1px solid #555;
+  }
+  
+}
