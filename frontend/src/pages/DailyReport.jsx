@@ -1,19 +1,54 @@
 
-import "./DailyReport.css";
 import { useEffect, useState } from "react";
+import {
+  Printer,
+  FileDown,
+  CalendarDays,
+  CalendarCheck2,
+  UsersRound,
+  ClipboardList,
+  AlertCircle,
+  LoaderCircle,
+} from "lucide-react";
+import "./DailyReport.css";
 
-const today = () => {
-  const date = new Date();
+const API_URL = "http://localhost:5000";
+
+function getToday() {
+  const now = new Date();
   const localDate = new Date(
-    date.getTime() - date.getTimezoneOffset() * 60000
+    now.getTime() - now.getTimezoneOffset() * 60000
   );
   return localDate.toISOString().slice(0, 10);
-};
+}
+
+function formatDate(dateString) {
+  if (!dateString) return "";
+
+  const [year, month, day] = dateString.split("-").map(Number);
+
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date(year, month - 1, day));
+}
+
+function escapeCSV(value) {
+  let text = String(value ?? "");
+
+  // Prevent spreadsheet formula injection
+  if (/^\s*[=+\-@\t\r\n]/.test(text)) {
+    text = "'" + text;
+  }
+
+  return `"${text.replace(/"/g, '""')}"`;
+}
 
 export default function DailyReport() {
-  const [date, setDate] = useState(today());
+  const [date, setDate] = useState(getToday);
   const [report, setReport] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -26,19 +61,42 @@ export default function DailyReport() {
 
       try {
         const response = await fetch(
-          `http://127.0.0.1:5000/api/reports/daily?date=${date}`,
-          { signal: controller.signal }
+          `${API_URL}/api/reports/daily?date=${encodeURIComponent(date)}`,
+          {
+            method: "GET",
+            credentials: "include",
+            signal: controller.signal,
+          }
         );
 
+        const data = await response.json();
+
         if (!response.ok) {
-          throw new Error("Could not load the daily report.");
+          if (response.status === 401) {
+            throw new Error(
+              "Your session has expired. Please log in again."
+            );
+          }
+
+          if (response.status === 403) {
+            throw new Error(
+              "You do not have permission to view this report."
+            );
+          }
+
+          throw new Error(
+            data.error || "Unable to load the reservation report."
+          );
         }
 
-        const data = await response.json();
         setReport(data);
       } catch (err) {
         if (err.name !== "AbortError") {
-          setError(err.message);
+          setError(
+            err instanceof TypeError
+              ? "Cannot connect to the Flask server."
+              : err.message
+          );
         }
       } finally {
         if (!controller.signal.aborted) {
@@ -47,7 +105,11 @@ export default function DailyReport() {
       }
     }
 
-    if (date) loadReport();
+    if (date) {
+      loadReport();
+    } else {
+      setLoading(false);
+    }
 
     return () => controller.abort();
   }, [date]);
@@ -60,36 +122,22 @@ export default function DailyReport() {
   const handleExportCSV = () => {
     if (!report || loading) return;
 
-    // Protect against spreadsheet formula injection.
-    const escapeCSV = (value) => {
-      let text = String(value ?? "");
-
-      if (/^[\s]*[=+\-@\t\r\n]/.test(text)) {
-        text = "'" + text;
-      }
-
-      return `"${text.replace(/"/g, '""')}"`;
-    };
-
     const rows = [
-      ["Time", "Customer", "Table", "Guests"],
-      ...report.reservations.map((r) => [
-        r.time,
-        r.customer_name,
-        r.table_number,
-        r.guest_count,
-      ]),
-    ];
-
-    const summary = [
       ["Cafe Fausse - Daily Reservation Report"],
       ["Date", report.date],
       ["Total Reservations", report.total_reservations],
       ["Expected Customers", report.total_customers],
       [],
+      ["Time", "Customer", "Table", "Guests"],
+      ...report.reservations.map((reservation) => [
+        reservation.time,
+        reservation.customer_name,
+        reservation.table_number,
+        reservation.guest_count,
+      ]),
     ];
 
-    const csv = [...summary, ...rows]
+    const csv = rows
       .map((row) => row.map(escapeCSV).join(";"))
       .join("\r\n");
 
@@ -113,10 +161,15 @@ export default function DailyReport() {
   return (
     <main className="daily-report">
       <div className="report-header">
-        <div>
+        <div className="report-heading">
+          <span className="report-eyebrow">
+            CAFÉ FAUSSE / MANAGEMENT
+          </span>
+
           <h1>Daily Reservation Report</h1>
+
           <p className="report-subtitle">
-            Café Fausse — Restaurant Management Dashboard
+            Review reservations and expected guests for any day.
           </p>
         </div>
 
@@ -126,8 +179,10 @@ export default function DailyReport() {
             className="report-btn print-btn"
             onClick={handlePrint}
             disabled={!report || loading}
+            title="Print or save as PDF"
           >
-            🖨 Print / PDF
+            <Printer size={18} strokeWidth={1.9} />
+            <span>Print / PDF</span>
           </button>
 
           <button
@@ -135,60 +190,153 @@ export default function DailyReport() {
             className="report-btn csv-btn"
             onClick={handleExportCSV}
             disabled={!report || loading}
+            title="Download the report as CSV"
           >
-            ↓ Export CSV
+            <FileDown size={18} strokeWidth={1.9} />
+            <span>Export CSV</span>
           </button>
         </div>
       </div>
 
-      <label htmlFor="report-date">Select Date</label>
-      <input
-        id="report-date"
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
-
-      {loading && <p>Loading report...</p>}
-      {error && <p role="alert">{error}</p>}
-
-      {report && (
-        <>
-          <div className="report-summary">
-            <div>
-              <h2>Total Reservations</h2>
-              <strong>{report.total_reservations}</strong>
-            </div>
-            <div>
-              <h2>Expected Customers</h2>
-              <strong>{report.total_customers}</strong>
-            </div>
+      <section className="report-filter" aria-label="Report filters">
+        <div className="report-filter-heading">
+          <div className="report-filter-icon">
+            <CalendarDays size={20} />
           </div>
 
-          <table className="report-table">
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Customer</th>
-                <th>Table</th>
-                <th>Guests</th>
-              </tr>
-            </thead>
-            <tbody>
-              {report.reservations.map((r) => (
-                <tr key={r.id}>
-                  <td>{r.time}</td>
-                  <td>{r.customer_name}</td>
-                  <td>{r.table_number}</td>
-                  <td>{r.guest_count}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div>
+            <label htmlFor="report-date">
+              Select Report Date
+            </label>
+            <p>Choose a day to view its reservations</p>
+          </div>
+        </div>
 
-          {report.reservations.length === 0 && (
-            <p>No reservations for this date.</p>
-          )}
+        <input
+          id="report-date"
+          type="date"
+          value={date}
+          onChange={(event) => setDate(event.target.value)}
+        />
+      </section>
+
+      {loading && (
+        <div className="report-status" role="status">
+          <LoaderCircle className="report-spinner" size={22} />
+          <span>Loading reservations...</span>
+        </div>
+      )}
+
+      {error && (
+        <div className="report-status report-error" role="alert">
+          <AlertCircle size={20} />
+          <span>{error}</span>
+        </div>
+      )}
+
+      {report && !loading && (
+        <>
+          <div className="report-print-heading">
+            <h2>Café Fausse — Daily Reservation Report</h2>
+            <p>Report Date: {formatDate(report.date)}</p>
+          </div>
+
+          <div className="report-date-caption">
+            <CalendarDays size={16} />
+            <span>{formatDate(report.date)}</span>
+          </div>
+
+          <section
+            className="report-summary"
+            aria-label="Daily reservation summary"
+          >
+            <div className="report-stat-card">
+              <div className="report-stat-top">
+                <span>Total Reservations</span>
+                <div className="report-stat-icon">
+                  <CalendarCheck2 size={22} />
+                </div>
+              </div>
+
+              <strong>{report.total_reservations}</strong>
+
+              <p>Bookings for the selected day</p>
+            </div>
+
+            <div className="report-stat-card">
+              <div className="report-stat-top">
+                <span>Expected Customers</span>
+                <div className="report-stat-icon">
+                  <UsersRound size={22} />
+                </div>
+              </div>
+
+              <strong>{report.total_customers}</strong>
+
+              <p>Total guests expected for service</p>
+            </div>
+          </section>
+
+          <section className="report-details">
+            <div className="report-details-header">
+              <div className="report-details-title">
+                <ClipboardList size={21} />
+                <h2>Reservation Details</h2>
+              </div>
+
+              <span className="report-count">
+                {report.total_reservations} bookings
+              </span>
+            </div>
+
+            <div className="report-table-wrapper">
+              <table className="report-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Time</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Table</th>
+                    <th scope="col">Guests</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {report.reservations.map((reservation) => (
+                    <tr key={reservation.id}>
+                      <td className="report-time">
+                        {reservation.time}
+                      </td>
+
+                      <td>
+                        {reservation.customer_name}
+                      </td>
+
+                      <td>
+                        <span className="report-table-number">
+                          {reservation.table_number}
+                        </span>
+                      </td>
+
+                      <td>
+                        {reservation.guest_count}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {report.reservations.length === 0 && (
+                <div className="report-empty">
+                  <CalendarDays size={34} strokeWidth={1.5} />
+                  <h3>No reservations found</h3>
+                  <p>
+                    There are no reservations for the selected date.
+                    Try choosing another day.
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
         </>
       )}
     </main>
